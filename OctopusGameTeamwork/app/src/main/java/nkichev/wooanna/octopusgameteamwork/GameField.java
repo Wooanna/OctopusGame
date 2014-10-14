@@ -195,11 +195,45 @@ public class GameField extends Activity implements SensorEventListener, GestureD
                      gameObjects.add(obj);
                 }
 
+                //check for collision
+                for (GameObject obj : gameObjects){
+                    if (ifCollide(creature, obj)){
+                        obj.setIsOutOfSpace(true);
+                    }
+                }
+
                 Canvas canvas = holder.lockCanvas();
                 //do drawing here
                 drawScene(canvas);
                 holder.unlockCanvasAndPost(canvas);
             }
+        }
+
+        protected boolean ifCollide(Octopus octopus, GameObject object){
+            float octopusLeft = octopus.getX();
+            float octopusRight = octopus.getX() + octopus.getWidth();
+            float octopusTop = octopus.getY();
+            float octopusBottom = octopus.getY() + octopus.getHeight();
+
+            float objectLeft = object.getX();
+            float objectRight = object.getX() + object.getSize();
+            float objectTop = object.getY();
+            float objectBottom = object.getY() + object.getSize();
+
+            if (octopusBottom < objectTop){
+                return false;
+            }
+            if (octopusTop > objectBottom){
+                return false;
+            }
+            if (octopusRight < objectLeft){
+                return false;
+            }
+            if (octopusLeft > objectRight){
+                return false;
+            }
+
+            return true;
         }
 
         protected void drawScene(Canvas canvas){

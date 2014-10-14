@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
-import nkichev.wooanna.octopusgameteamwork.GameAudio.Assets;
 import nkichev.wooanna.octopusgameteamwork.GameAudio.GameAudio;
 
 
@@ -30,6 +29,9 @@ public class MenuActivity extends Activity implements View.OnClickListener{
         instructions.setImageResource(R.drawable.options_btn);
         play.setOnClickListener(this);
         instructions.setOnClickListener(this);
+
+        //just for testing highscores activity
+        options.setOnClickListener(this);
 
         gameAudio = new GameAudio(this);
         //Assets.song = gameAudio.newMusic("Plodchetata.mp3");
@@ -61,8 +63,11 @@ public class MenuActivity extends Activity implements View.OnClickListener{
         if(view.getId() == findViewById(R.id.play).getId()) {
             Intent in = new Intent(MenuActivity.this , GameField.class);
             startActivity(in);
-        }else if(view.getId() == findViewById(R.id.instructions).getId()){
+        } else if(view.getId() == findViewById(R.id.instructions).getId()){
             Intent in = new Intent(MenuActivity.this , InstructionsActivity.class);
+            startActivity(in);
+        } else if(view.getId() == findViewById(R.id.options).getId()) {
+            Intent in = new Intent(MenuActivity.this , HighscoresActivity.class);
             startActivity(in);
         }
     }

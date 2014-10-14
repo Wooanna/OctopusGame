@@ -2,7 +2,6 @@ package nkichev.wooanna.octopusgameteamwork;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
 /**
@@ -32,16 +31,30 @@ public class GameObject {
             isOutOfSpace = true;
         }
     }
+
     public void draw(Canvas c){
         update();
        c.drawBitmap(image, this.xPosiotion, this.yPosition, null);
     }
-     public int getY(){
+
+    public int getY(){
          return this.yPosition;
      }
 
+    public int getX(){
+        return this.xPosiotion;
+    }
+
+    public int getSize(){
+        return this.size;
+    }
+
     public boolean isOutOfSpace(){
         return this.isOutOfSpace;
+    }
+
+    public void setIsOutOfSpace(boolean state){
+        this.isOutOfSpace = state;
     }
 
 }

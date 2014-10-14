@@ -4,5 +4,9 @@
     <string name="app_name">Octopus Game Teamwork</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="highscoresText">Highscores</string>
+    <string name="nameText">Name</string>
+    <string name="scoreText">Score</string>
+    <string name="title_activity_highscores">HighscoresActivity</string>
 
 </resources>
