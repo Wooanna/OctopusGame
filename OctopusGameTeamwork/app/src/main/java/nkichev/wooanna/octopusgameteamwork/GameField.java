@@ -2,6 +2,7 @@ package nkichev.wooanna.octopusgameteamwork;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +14,8 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.WindowManager;
@@ -21,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class GameField extends Activity implements SensorEventListener {
+public class GameField extends Activity implements SensorEventListener, GestureDetector.OnGestureListener {
 
     OurGameView v;
     Bitmap octopus;
@@ -40,6 +43,8 @@ public class GameField extends Activity implements SensorEventListener {
     GameObjectManger gameObjectManager;
    public List<GameObject> gameObjects;
     Random random;
+    private  GestureDetector detector;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -60,6 +65,7 @@ public class GameField extends Activity implements SensorEventListener {
         random = new Random();
         gameObjectManager = new GameObjectManger(this);
         gameObjects = new ArrayList<GameObject>();
+        this.detector = new GestureDetector(this, this);
         setContentView(v);
     }
 
@@ -98,6 +104,11 @@ public class GameField extends Activity implements SensorEventListener {
 
 
     @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return this.detector.onTouchEvent(event);
+    }
+
+    @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
 
 
@@ -124,6 +135,39 @@ public class GameField extends Activity implements SensorEventListener {
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
         //unimplemented for now, we ain't gonna need it
+    }
+
+    @Override
+    public boolean onDown(MotionEvent motionEvent) {
+        return true;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent motionEvent) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent motionEvent) {
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent2, float v, float v2) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent motionEvent) {
+           intent = new Intent(GameField.this, ActivityPoused.class);
+        startActivity(intent);
+
+
+    }
+
+    @Override
+    public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent2, float v, float v2) {
+        return false;
     }
 
     public class OurGameView extends SurfaceView implements Runnable {

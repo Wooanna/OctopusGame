@@ -5,9 +5,6 @@
     android:background="@drawable/bgr_main"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-
-
-
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
@@ -23,6 +20,15 @@
         android:layout_height="150dp"
         android:layout_gravity="center_horizontal"
         android:id="@+id/options"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="78dp" />
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/instructions"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="78dp" />

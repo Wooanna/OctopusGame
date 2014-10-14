@@ -15,6 +15,7 @@ import nkichev.wooanna.octopusgameteamwork.GameAudio.GameAudio;
 public class MenuActivity extends Activity implements View.OnClickListener{
     ImageView play;
     ImageView options;
+    ImageView instructions;
     GameAudio gameAudio;
 
     @Override
@@ -23,9 +24,12 @@ public class MenuActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_menu);
         play = (ImageView)findViewById(R.id.play);
         options = (ImageView)findViewById(R.id.options);
+        instructions = (ImageView)findViewById(R.id.instructions);
         play.setImageResource(R.drawable.start_btn);
         options.setImageResource(R.drawable.options_btn);
+        instructions.setImageResource(R.drawable.options_btn);
         play.setOnClickListener(this);
+        instructions.setOnClickListener(this);
 
         gameAudio = new GameAudio(this);
         //Assets.song = gameAudio.newMusic("Plodchetata.mp3");
@@ -56,6 +60,9 @@ public class MenuActivity extends Activity implements View.OnClickListener{
     public void onClick(View view) {
         if(view.getId() == findViewById(R.id.play).getId()) {
             Intent in = new Intent(MenuActivity.this , GameField.class);
+            startActivity(in);
+        }else if(view.getId() == findViewById(R.id.instructions).getId()){
+            Intent in = new Intent(MenuActivity.this , InstructionsActivity.class);
             startActivity(in);
         }
     }
