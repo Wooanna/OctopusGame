@@ -1,0 +1,30 @@
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bgr_main"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/play"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignLeft="@+id/options"
+        android:layout_alignStart="@+id/options" />
+
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/options"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="78dp" />
+
+</LinearLayout>
