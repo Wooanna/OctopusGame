@@ -34,5 +34,18 @@ public class GameAudio implements Audio {
             throw new RuntimeException("Couldn't load music '" + filename + "'");
         }
     }
+
+    @Override
+    public Sound newSound(String filename) {
+
+        try {
+            AssetFileDescriptor assetDescriptor = assets.openFd(filename);
+            int soundId = soundPool.load(assetDescriptor, 0);
+            return new GameSound(soundPool, soundId);
+
+        }  catch (IOException e) {
+            throw new RuntimeException("Couldn't load sound '" + filename + "'");
+        }
+    }
 }
 

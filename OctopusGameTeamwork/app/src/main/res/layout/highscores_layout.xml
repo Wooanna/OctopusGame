@@ -15,7 +15,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/highscoresText"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -23,7 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
-        android:id="@+id/linearLayout">
+        android:id="@+id/linearLayout"
+        android:layout_marginBottom="20dp">
 
         <TextView
             android:layout_width="wrap_content"

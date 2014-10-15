@@ -8,7 +8,7 @@ import android.graphics.Canvas;
  * Created by Woo on 13.10.2014 г..
  */
 public class GameObject {
-    private int xPosiotion;
+    private int xPosition;
     private int yPosition;
     private int size;
     private String type;
@@ -18,7 +18,7 @@ public class GameObject {
 
     public GameObject(Context context, String type, int xPosition, Bitmap image){
         this.type = String.valueOf(type);
-        this.xPosiotion = xPosition;
+        this.xPosition = xPosition;
         this.yPosition = 0;
         this.image = image;
         this.size = image.getWidth();
@@ -34,7 +34,7 @@ public class GameObject {
 
     public void draw(Canvas c){
         update();
-       c.drawBitmap(image, this.xPosiotion, this.yPosition, null);
+       c.drawBitmap(image, this.xPosition, this.yPosition, null);
     }
 
     public int getY(){
@@ -42,7 +42,7 @@ public class GameObject {
      }
 
     public int getX(){
-        return this.xPosiotion;
+        return this.xPosition;
     }
 
     public int getSize(){

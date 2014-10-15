@@ -220,16 +220,16 @@ public class GameField extends Activity implements SensorEventListener, GestureD
             float objectTop = object.getY();
             float objectBottom = object.getY() + object.getSize();
 
-            if (octopusBottom < objectTop){
+            if (octopusBottom <= objectTop){
                 return false;
             }
-            if (octopusTop > objectBottom){
+            if (octopusTop >= objectBottom){
                 return false;
             }
-            if (octopusRight < objectLeft){
+            if (octopusRight <= objectLeft){
                 return false;
             }
-            if (octopusLeft > objectRight){
+            if (octopusLeft >= objectRight){
                 return false;
             }
 
