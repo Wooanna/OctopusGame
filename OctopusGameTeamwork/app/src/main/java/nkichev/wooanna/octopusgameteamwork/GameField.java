@@ -1,7 +1,9 @@
 package nkichev.wooanna.octopusgameteamwork;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -24,6 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import nkichev.wooanna.octopusgameteamwork.QuestionsDB.Question;
+
 public class GameField extends Activity implements SensorEventListener, GestureDetector.OnGestureListener {
 
     OurGameView v;
@@ -45,6 +49,14 @@ public class GameField extends Activity implements SensorEventListener, GestureD
     Random random;
     private  GestureDetector detector;
     Intent intent;
+    private CollisionManager collisionManager;
+    public static final  String Q = "Q";
+    public static final String A = "A";
+    public static final String SCORE = "SCORE";
+
+    public static long score ;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -64,8 +76,10 @@ public class GameField extends Activity implements SensorEventListener, GestureD
         GetScreenDimentions();
         random = new Random();
         gameObjectManager = new GameObjectManger(this);
+        collisionManager = new CollisionManager(GameField.this);
         gameObjects = new ArrayList<GameObject>();
         this.detector = new GestureDetector(this, this);
+        this.score = 0;
         setContentView(v);
     }
 
@@ -120,7 +134,7 @@ public class GameField extends Activity implements SensorEventListener, GestureD
             }
             //something is wrong here and we need to fix the bug!!(image is going a bit down than it has to!
             //It is probably because of not calculating the height of the upper bar on the screen!!!!
-            if (yPosition > ymax - creature.getHeight()) {
+            if (yPosition > ymax - creature.getHeight() ) {
                 yPosition = ymax - creature.getHeight();
             } else if (yPosition < 0) {
                 yPosition = 0;
@@ -162,7 +176,6 @@ public class GameField extends Activity implements SensorEventListener, GestureD
            intent = new Intent(GameField.this, ActivityPoused.class);
         startActivity(intent);
 
-
     }
 
     @Override
@@ -198,12 +211,21 @@ public class GameField extends Activity implements SensorEventListener, GestureD
                 //check for collision
                 for (GameObject obj : gameObjects){
                     if (ifCollide(creature, obj)){
+
+                        if(obj.getType() == "Question" && !obj.isOutOfSpace()){
+                            startQuestionActivity();
+                        }else  if(obj.getType() == "Star" && !obj.isOutOfSpace()){
+                          score +=45;
+                        }else if(obj.getType() == "Enemy" && !obj.isOutOfSpace()){
+                            gameOver();
+                        }else if(obj.getType() == "Present" && !obj.isOutOfSpace()){
+
+                        }
                         obj.setIsOutOfSpace(true);
                     }
                 }
 
                 Canvas canvas = holder.lockCanvas();
-                //do drawing here
                 drawScene(canvas);
                 holder.unlockCanvasAndPost(canvas);
             }
@@ -267,5 +289,38 @@ public class GameField extends Activity implements SensorEventListener, GestureD
             t = new Thread(this);
             t.start();
         }
+    }
+
+    private void gameOver() {
+      Intent gameOver = new Intent(GameField.this, OnGameOverActivity.class);
+        gameOver.putExtra(SCORE, score);
+        startActivity(gameOver);
+    }
+
+    private void startQuestionActivity() {
+        Question q = collisionManager.onQuestionCollision();
+
+        Intent i  = new Intent(this, QuestionActivity.class);
+        i.putExtra(Q, q.getQuestion());
+        i.putExtra(A, q.getAnswers());
+        startActivity(i);
+        // alertDialog(collisionManager.onQuestionCollision());
+    }
+
+    private void alertDialog(Question currentQuestion) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        String[] currentQuestionAnswers = currentQuestion.getAnswers();
+
+        builder.setTitle(currentQuestion.getQuestion())
+                .setItems(currentQuestionAnswers, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+        builder.create();
+        builder.show();
+
     }
 }

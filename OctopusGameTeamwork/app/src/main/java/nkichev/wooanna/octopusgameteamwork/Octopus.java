@@ -22,7 +22,7 @@ public class Octopus {
     public Octopus(GameField.OurGameView view, Bitmap bitmap) {
         this.bitmap = bitmap;
         this.height = bitmap.getHeight();
-        this.width = bitmap.getWidth()/2;
+        this.width = bitmap.getWidth()/6;
         this.x = 0;
         this.y = 0;
         ov = view;
@@ -67,8 +67,7 @@ public class Octopus {
 
 
     public void draw(Canvas canvas) {
-        currentFrame = ++currentFrame %2;
-       // Log.d("CURRENTFRAME", String.valueOf(currentFrame));
+        currentFrame = ++currentFrame %6;
         int srcX = this.currentFrame* (int)this.width;
 
         Rect src = new Rect(srcX, 0, (currentFrame+1)*(int)width, (int)height);

@@ -49,6 +49,9 @@ public class GameObject {
         return this.size;
     }
 
+    public String getType() { return this.type; }
+
+
     public boolean isOutOfSpace(){
         return this.isOutOfSpace;
     }

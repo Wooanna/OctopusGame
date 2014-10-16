@@ -8,5 +8,6 @@
     <string name="nameText">Name</string>
     <string name="scoreText">Score</string>
     <string name="title_activity_highscores">HighscoresActivity</string>
+    <string name="title_activity_questions">DataActivity</string>
 
 </resources>
