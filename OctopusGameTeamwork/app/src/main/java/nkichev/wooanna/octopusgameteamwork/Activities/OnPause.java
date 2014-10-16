@@ -1,4 +1,4 @@
-package nkichev.wooanna.octopusgameteamwork;
+package nkichev.wooanna.octopusgameteamwork.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import nkichev.wooanna.octopusgameteamwork.R;
+
 /**
  * Created by Woo on 14.10.2014 г..
  */
-public class ActivityPoused extends Activity implements View.OnClickListener {
+public class OnPause extends Activity implements View.OnClickListener {
 
     ImageView poused;
     Intent intent;
@@ -27,7 +29,7 @@ public class ActivityPoused extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if(view.getId() == R.id.resume){
-            ActivityPoused.this.finish();
+            OnPause.this.finish();
         }
     }
 }

@@ -1,15 +1,8 @@
-package nkichev.wooanna.octopusgameteamwork;
+package nkichev.wooanna.octopusgameteamwork.GameObjects;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import nkichev.wooanna.octopusgameteamwork.QuestionsDB.DataProvider;

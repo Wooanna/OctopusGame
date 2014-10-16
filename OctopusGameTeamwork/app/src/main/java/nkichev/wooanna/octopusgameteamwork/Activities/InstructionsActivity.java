@@ -1,15 +1,15 @@
-package nkichev.wooanna.octopusgameteamwork;
+package nkichev.wooanna.octopusgameteamwork.Activities;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.gesture.Gesture;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import nkichev.wooanna.octopusgameteamwork.R;
 
 /**
  * Created by Woo on 14.10.2014 г..

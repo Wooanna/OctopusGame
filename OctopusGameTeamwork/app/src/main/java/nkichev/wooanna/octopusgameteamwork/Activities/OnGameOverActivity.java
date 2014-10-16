@@ -1,4 +1,4 @@
-package nkichev.wooanna.octopusgameteamwork;
+package nkichev.wooanna.octopusgameteamwork.Activities;
 
 import android.app.Activity;
 import android.app.Notification;
@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import nkichev.wooanna.octopusgameteamwork.HighscoresDB.EntriesDataSource;
+import nkichev.wooanna.octopusgameteamwork.R;
 
 /**
  * Created by Woo on 15.10.2014 г..

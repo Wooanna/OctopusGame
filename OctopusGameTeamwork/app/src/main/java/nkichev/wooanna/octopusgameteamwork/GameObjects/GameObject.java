@@ -1,4 +1,4 @@
-package nkichev.wooanna.octopusgameteamwork;
+package nkichev.wooanna.octopusgameteamwork.GameObjects;
 
 import android.content.Context;
 import android.graphics.Bitmap;

@@ -1,11 +1,12 @@
-package nkichev.wooanna.octopusgameteamwork;
+package nkichev.wooanna.octopusgameteamwork.GameObjects;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.view.Display;
 
 import java.util.Random;
+
+import nkichev.wooanna.octopusgameteamwork.R;
 
 /**
  * Created by Woo on 13.10.2014 г..

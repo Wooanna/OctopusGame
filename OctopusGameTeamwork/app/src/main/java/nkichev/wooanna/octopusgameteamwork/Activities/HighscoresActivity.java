@@ -1,4 +1,4 @@
-package nkichev.wooanna.octopusgameteamwork;
+package nkichev.wooanna.octopusgameteamwork.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import nkichev.wooanna.octopusgameteamwork.HighscoresDB.EntriesDataSource;
 import nkichev.wooanna.octopusgameteamwork.HighscoresDB.Entry;
+import nkichev.wooanna.octopusgameteamwork.R;
 
 public class HighscoresActivity extends Activity {
 

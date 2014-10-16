@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MenuActivity"
+            android:name=".Activities.MenuActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,31 +17,32 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GameField"
+            android:name=".Activities.GameField"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".InstructionsActivity"
+            android:name=".Activities.InstructionsActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".SecondPageInstructionsActivity"
+            android:name=".Activities.SecondPageInstructionsActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".ActivityPoused"
+            android:name=".Activities.OnPause"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".HighscoresActivity"
+            android:name=".Activities.HighscoresActivity"
             android:label="@string/title_activity_highscores" >
         </activity>
 
-        <activity android:name=".QuestionActivity"></activity>
-        <activity android:name=".OnGameOverActivity"></activity>
-
+        <activity android:name=".Activities.QuestionActivity"></activity>
+        <activity android:name=".Activities.OnGameOverActivity"></activity>
+        <service android:name=".GameAudio.BackgroundMusicService" />
 
     </application>
+
 
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.INTERNET" />

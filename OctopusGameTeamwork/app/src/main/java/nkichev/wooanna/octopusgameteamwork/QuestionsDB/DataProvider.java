@@ -1,16 +1,13 @@
 package nkichev.wooanna.octopusgameteamwork.QuestionsDB;
 
-import android.app.Activity;
-import android.os.Bundle;
 import android.util.Log;
 
 import com.telerik.everlive.sdk.core.EverliveApp;
 import com.telerik.everlive.sdk.core.result.RequestResult;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import nkichev.wooanna.octopusgameteamwork.CollisionManager;
+import nkichev.wooanna.octopusgameteamwork.GameObjects.CollisionManager;
 
 /**
  * Created by Woo on 15.10.2014 г..

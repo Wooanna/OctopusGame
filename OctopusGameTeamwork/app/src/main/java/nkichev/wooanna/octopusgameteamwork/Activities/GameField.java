@@ -1,9 +1,7 @@
-package nkichev.wooanna.octopusgameteamwork;
+package nkichev.wooanna.octopusgameteamwork.Activities;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -26,10 +24,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import nkichev.wooanna.octopusgameteamwork.GameObjects.Background;
+import nkichev.wooanna.octopusgameteamwork.GameObjects.CollisionManager;
 import nkichev.wooanna.octopusgameteamwork.GameAudio.Assets;
 import nkichev.wooanna.octopusgameteamwork.GameAudio.GameAudio;
-import nkichev.wooanna.octopusgameteamwork.GameAudio.GameSound;
+import nkichev.wooanna.octopusgameteamwork.GameObjects.GameObject;
+import nkichev.wooanna.octopusgameteamwork.GameObjects.GameObjectManger;
+import nkichev.wooanna.octopusgameteamwork.GameObjects.Octopus;
 import nkichev.wooanna.octopusgameteamwork.QuestionsDB.Question;
+import nkichev.wooanna.octopusgameteamwork.R;
+import nkichev.wooanna.octopusgameteamwork.GameObjects.Score;
 
 public class GameField extends Activity implements SensorEventListener, GestureDetector.OnGestureListener {
 
@@ -52,6 +56,8 @@ public class GameField extends Activity implements SensorEventListener, GestureD
     private CollisionManager collisionManager;
     private GameAudio gameAudio;
     private Score scoreDrawer;
+    private int collisionOffset;
+    private int bottomOffset;
 
     public static final  String Q = "Q";
     public static final String A = "A";
@@ -85,14 +91,16 @@ public class GameField extends Activity implements SensorEventListener, GestureD
         Assets.gameover = gameAudio.newSound("gameover.wav");
 
         this.score = 0;
-        Assets.submarine.play();
+        this.collisionOffset = 50;
+        this.bottomOffset = 80;
+
         setContentView(v);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Assets.submarine.play();
+
     }
 
     private void GetScreenDimentions() {
@@ -112,7 +120,7 @@ public class GameField extends Activity implements SensorEventListener, GestureD
 
     @Override
     protected void onResume() {
-        Assets.submarine.play();
+     //   Assets.submarine.play();
         super.onResume();
 
         // Register this class as a listener for the accelerometer sensor
@@ -144,10 +152,9 @@ public class GameField extends Activity implements SensorEventListener, GestureD
             } else if (xPosition < 0) {
                 xPosition = 0;
             }
-            //something is wrong here and we need to fix the bug!!(image is going a bit down than it has to!
-            //It is probably because of not calculating the height of the upper bar on the screen!!!!
-            if (yPosition > ymax - creature.getHeight() ) {
-                yPosition = ymax - creature.getHeight();
+
+            if (yPosition > ymax - creature.getHeight() - bottomOffset ) {
+                yPosition = ymax - creature.getHeight() - bottomOffset;
             } else if (yPosition < 0) {
                 yPosition = 0;
             }
@@ -186,7 +193,7 @@ public class GameField extends Activity implements SensorEventListener, GestureD
 
     @Override
     public void onLongPress(MotionEvent motionEvent) {
-           intent = new Intent(GameField.this, ActivityPoused.class);
+           intent = new Intent(GameField.this, OnPause.class);
         startActivity(intent);
 
     }
@@ -229,6 +236,7 @@ public class GameField extends Activity implements SensorEventListener, GestureD
                         if(obj.getType() == "Question" && !obj.isOutOfSpace()){
                              Assets.blop.play(1);
                             startQuestionActivity();
+                            score *=2;
                         }else  if(obj.getType() == "Star" && !obj.isOutOfSpace()){
                           score +=45;
                           Assets.bell.play(1);
@@ -258,16 +266,16 @@ public class GameField extends Activity implements SensorEventListener, GestureD
             float objectTop = object.getY();
             float objectBottom = object.getY() + object.getSize();
 
-            if (octopusBottom <= objectTop){
+            if (octopusBottom <= objectTop + collisionOffset){
                 return false;
             }
-            if (octopusTop >= objectBottom){
+            if (octopusTop >= objectBottom - collisionOffset){
                 return false;
             }
-            if (octopusRight <= objectLeft){
+            if (octopusRight <= objectLeft + collisionOffset){
                 return false;
             }
-            if (octopusLeft >= objectRight){
+            if (octopusLeft >= objectRight - collisionOffset){
                 return false;
             }
 
@@ -284,7 +292,6 @@ public class GameField extends Activity implements SensorEventListener, GestureD
              }
              scoreDrawer.draw(canvas, score);
              creature.draw(canvas);
-
         }
 
         public void pause(){

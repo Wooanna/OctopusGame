@@ -1,9 +1,10 @@
-package nkichev.wooanna.octopusgameteamwork;
+package nkichev.wooanna.octopusgameteamwork.GameObjects;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.util.Log;
+
+import nkichev.wooanna.octopusgameteamwork.Activities.GameField;
 
 /**
  * Created by Woo on 13.10.2014 г..

@@ -1,4 +1,4 @@
-package nkichev.wooanna.octopusgameteamwork;
+package nkichev.wooanna.octopusgameteamwork.Activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import nkichev.wooanna.octopusgameteamwork.HighscoresDB.Entry;
+import nkichev.wooanna.octopusgameteamwork.R;
 
 public class EntryAdapter extends ArrayAdapter<Entry> {
     private Context context;

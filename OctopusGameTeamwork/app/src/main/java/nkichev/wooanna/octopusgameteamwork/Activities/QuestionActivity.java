@@ -1,13 +1,9 @@
-package nkichev.wooanna.octopusgameteamwork;
+package nkichev.wooanna.octopusgameteamwork.Activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-
-import nkichev.wooanna.octopusgameteamwork.QuestionsDB.Question;
 
 /**
  * Created by Woo on 15.10.2014 г..

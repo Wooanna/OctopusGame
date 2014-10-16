@@ -1,8 +1,10 @@
-package nkichev.wooanna.octopusgameteamwork;
+package nkichev.wooanna.octopusgameteamwork.GameObjects;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+
+import nkichev.wooanna.octopusgameteamwork.Activities.GameField;
 
 public class Background {
 

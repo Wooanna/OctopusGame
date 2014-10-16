@@ -1,4 +1,4 @@
-package nkichev.wooanna.octopusgameteamwork;
+package nkichev.wooanna.octopusgameteamwork.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,8 +10,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import nkichev.wooanna.octopusgameteamwork.GameAudio.Assets;
+import nkichev.wooanna.octopusgameteamwork.GameAudio.BackgroundMusicService;
 import nkichev.wooanna.octopusgameteamwork.GameAudio.GameAudio;
+import nkichev.wooanna.octopusgameteamwork.R;
 
 
 public class MenuActivity extends Activity implements View.OnClickListener{
@@ -19,6 +20,7 @@ public class MenuActivity extends Activity implements View.OnClickListener{
     ImageView options;
     ImageView instructions;
     GameAudio gameAudio;
+    Intent playbackServiceIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,22 +42,25 @@ public class MenuActivity extends Activity implements View.OnClickListener{
         options.setOnClickListener(this);
 
         gameAudio = new GameAudio(this);
-        Assets.submarine = gameAudio.newMusic("submarine.mp3");
-        Assets.submarine.play();
+
+
+        // background music service
+        playbackServiceIntent = new Intent(this, BackgroundMusicService.class);
+        startService(playbackServiceIntent);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        Assets.submarine.play();
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        Assets.submarine.play();
+
     }
 
     @Override
@@ -67,14 +72,14 @@ public class MenuActivity extends Activity implements View.OnClickListener{
     protected void onPause() {
         super.onPause();
 
-        Assets.submarine.pause();
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
 
-        Assets.submarine.stop();
+
     }
 
     @Override
