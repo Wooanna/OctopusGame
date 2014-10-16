@@ -41,6 +41,13 @@ public class OnGameOverActivity extends Activity implements View.OnClickListener
     }
 
     @Override
+    public void onBackPressed() {
+        Intent i = new Intent(OnGameOverActivity.this, MenuActivity.class);
+        startActivity(i);
+
+    }
+
+    @Override
     public void onClick(View view) {
         if(view.getId() == R.id.btn_done){
 
@@ -87,7 +94,8 @@ public class OnGameOverActivity extends Activity implements View.OnClickListener
                 Intent in = new Intent(OnGameOverActivity.this, HighscoresActivity.class);
                 startActivity(in);
             }
-        }else if(view.getId() == R.id.btn_play_again){
+        }
+        if(view.getId() == R.id.btn_play_again){
             Intent in = new Intent(OnGameOverActivity.this, GameField.class);
             startActivity(in);
         }
