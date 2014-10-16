@@ -1,6 +1,7 @@
 package nkichev.wooanna.octopusgameteamwork;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
@@ -63,7 +64,7 @@ public class HighscoresActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.highscores, menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
@@ -72,6 +73,10 @@ public class HighscoresActivity extends Activity {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
+        }
+        if (id == R.id.action_toMain) {
+            Intent in = new Intent(HighscoresActivity.this, MenuActivity.class);
+            startActivity(in);
         }
         return super.onOptionsItemSelected(item);
     }

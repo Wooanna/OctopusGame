@@ -7,14 +7,16 @@
 
 
     <ImageView
-        android:layout_width="30dp"
+        android:layout_width="0dp"
         android:layout_height="30dp"
+        android:layout_weight="1"
         android:id="@+id/tvEntryIcon"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/octopus_icon" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Large Text"
         style="@style/MyTextViewStyle"
@@ -22,8 +24,9 @@
          />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:layout_gravity="right"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Large Text"

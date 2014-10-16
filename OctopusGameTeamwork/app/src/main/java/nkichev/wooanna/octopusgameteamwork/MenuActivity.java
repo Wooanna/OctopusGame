@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import nkichev.wooanna.octopusgameteamwork.GameAudio.Assets;
 import nkichev.wooanna.octopusgameteamwork.GameAudio.GameAudio;
@@ -17,10 +18,6 @@ public class MenuActivity extends Activity implements View.OnClickListener{
     ImageView options;
     ImageView instructions;
     GameAudio gameAudio;
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,8 +101,13 @@ public class MenuActivity extends Activity implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         if(view.getId() == findViewById(R.id.play).getId()) {
-            Intent in = new Intent(MenuActivity.this , GameField.class);
-            startActivity(in);
+            if (InternetChecker.checkConn(MenuActivity.this)){
+                Intent in = new Intent(MenuActivity.this , GameField.class);
+                startActivity(in);
+            }else {
+                Toast.makeText(MenuActivity.this, "No connection available",
+                        Toast.LENGTH_SHORT).show();
+            }
         } else if(view.getId() == findViewById(R.id.instructions).getId()){
             Intent in = new Intent(MenuActivity.this , HighscoresActivity.class);
             startActivity(in);

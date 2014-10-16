@@ -1,10 +1,11 @@
 package nkichev.wooanna.octopusgameteamwork;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ public class OnGameOverActivity extends Activity implements View.OnClickListener
     EntriesDataSource dataSourceForReading;
     long score;
     long id;
+    Notification newBestScoreNotification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,23 @@ public class OnGameOverActivity extends Activity implements View.OnClickListener
                 dataSource.open();
                 dataSourceForReading.openForReading();
                 id = dataSourceForReading.findEntry(name.getText().toString());
+
+                long currentBestScore = dataSource.getBestScore();
+                if (currentBestScore != -1 && currentBestScore < score) {
+                    Toast.makeText(this, "Congratulations, you achieved a new best score!",
+                            Toast.LENGTH_SHORT).show();
+                    newBestScoreNotification = new Notification.Builder(this)
+                            .setContentTitle("New best score : "  + String.valueOf(score))
+                            .setContentText("You made it!")
+                            .setSmallIcon(R.drawable.ic_launcher)
+                            .setAutoCancel(true).build();
+
+                    NotificationManager notificationManager =
+                            (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+                    notificationManager.notify(0, newBestScoreNotification);
+                }
+
                 if (this.id != -1) {
                     dataSource.updateEntry(this.score, this.id);
                     dataSourceForReading.close();
@@ -65,6 +84,8 @@ public class OnGameOverActivity extends Activity implements View.OnClickListener
                 }
 
                 Toast.makeText(this, "your score added", Toast.LENGTH_SHORT).show();
+                Intent in = new Intent(OnGameOverActivity.this, HighscoresActivity.class);
+                startActivity(in);
             }
         }else if(view.getId() == R.id.btn_play_again){
             Intent in = new Intent(OnGameOverActivity.this, GameField.class);

@@ -91,6 +91,22 @@ public class EntriesDataSource {
         return entries;
     }
 
+    public long getBestScore(){
+        Entry entryWithBestScore = new Entry();
+
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_ENTRIES,
+                allColumns, null, null, null, null, MySQLiteHelper.COLUMN_SCORE + " DESC");
+
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            entryWithBestScore = cursorToEntry(cursor);
+            cursor.close();
+            return entryWithBestScore.getScore();
+        }
+
+        else return -1;
+    }
+
     private Entry cursorToEntry(Cursor cursor) {
         Entry entry = new Entry();
         entry.setId(cursor.getLong(0));
