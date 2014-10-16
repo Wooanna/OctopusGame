@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import nkichev.wooanna.octopusgameteamwork.GameAudio.Assets;
 import nkichev.wooanna.octopusgameteamwork.GameAudio.GameAudio;
 
 
@@ -17,6 +18,10 @@ public class MenuActivity extends Activity implements View.OnClickListener{
     ImageView instructions;
     GameAudio gameAudio;
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,9 +29,9 @@ public class MenuActivity extends Activity implements View.OnClickListener{
         play = (ImageView)findViewById(R.id.play);
         options = (ImageView)findViewById(R.id.options);
         instructions = (ImageView)findViewById(R.id.instructions);
-        play.setImageResource(R.drawable.start_btn);
-        options.setImageResource(R.drawable.options_btn);
-        instructions.setImageResource(R.drawable.options_btn);
+        play.setImageResource(R.drawable.play);
+        options.setImageResource(R.drawable.rules);
+        instructions.setImageResource(R.drawable.scores);
         play.setOnClickListener(this);
         instructions.setOnClickListener(this);
 
@@ -34,8 +39,46 @@ public class MenuActivity extends Activity implements View.OnClickListener{
         options.setOnClickListener(this);
 
         gameAudio = new GameAudio(this);
-        //Assets.song = gameAudio.newMusic("Plodchetata.mp3");
-       // Assets.song.play();
+        Assets.submarine = gameAudio.newMusic("submarine.mp3");
+        Assets.submarine.play();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Assets.submarine.play();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        Assets.submarine.play();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        Assets.submarine.pause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        Assets.submarine.stop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
 
@@ -64,10 +107,10 @@ public class MenuActivity extends Activity implements View.OnClickListener{
             Intent in = new Intent(MenuActivity.this , GameField.class);
             startActivity(in);
         } else if(view.getId() == findViewById(R.id.instructions).getId()){
-            Intent in = new Intent(MenuActivity.this , InstructionsActivity.class);
+            Intent in = new Intent(MenuActivity.this , HighscoresActivity.class);
             startActivity(in);
         } else if(view.getId() == findViewById(R.id.options).getId()) {
-            Intent in = new Intent(MenuActivity.this , HighscoresActivity.class);
+            Intent in = new Intent(MenuActivity.this , InstructionsActivity.class);
             startActivity(in);
         }
     }

@@ -22,7 +22,7 @@
         android:id="@+id/options"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="78dp" />
+        android:layout_marginBottom="20dp" />
 
     <ImageView
         android:layout_width="150dp"
@@ -31,6 +31,6 @@
         android:id="@+id/instructions"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="78dp" />
+        android:layout_marginBottom="20dp" />
 
 </LinearLayout>

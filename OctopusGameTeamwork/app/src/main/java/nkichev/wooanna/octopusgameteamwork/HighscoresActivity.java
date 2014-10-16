@@ -1,10 +1,12 @@
 package nkichev.wooanna.octopusgameteamwork;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -16,11 +18,23 @@ public class HighscoresActivity extends Activity {
     private EntriesDataSource datasource;
     private ArrayList<Entry> entries;
     private ListView list;
+    private TextView highscores;
+    private TextView name;
+    private TextView score;
+    private TextView entry_name;
+    private TextView entry_score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.highscores_layout);
+        Typeface font = Typeface.createFromAsset(getAssets(), "BEERNOTE.ttf");
+        highscores = (TextView)findViewById(R.id.highscores);
+        highscores.setTypeface(font);
+        name = (TextView)findViewById(R.id.tvName);
+        name.setTypeface(font);
+        score = (TextView)findViewById(R.id.tvScore);
+        score.setTypeface(font);
 
         datasource = new EntriesDataSource(this);
         datasource.open();

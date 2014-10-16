@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.gesture.Gesture;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -28,6 +29,7 @@ public class InstructionsActivity extends Activity implements GestureDetector.On
     private Intent intent;
     private  GestureDetector detector;
 
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.instruct_layout);
@@ -40,14 +42,18 @@ public class InstructionsActivity extends Activity implements GestureDetector.On
         question.setImageResource(R.drawable.question_mark);
         present.setImageResource(R.drawable.present);
         rightArrow.setImageResource(R.drawable.right_arrow);
-
+        Typeface font = Typeface.createFromAsset(getAssets(), "BEERNOTE.ttf");
         star_text = (TextView)findViewById(R.id.star_text);
         question_text = (TextView)findViewById(R.id.question_text);
         present_text = (TextView)findViewById(R.id.present_text);
         star_text.setText(STAR_TEXT);
         question_text.setText(QUESTION_TEXT);
         present_text.setText(PRESENT_TEXT);
+        star_text.setTypeface(font);
+        question_text.setTypeface(font);
+        present_text.setTypeface(font);
         this.detector = new GestureDetector(this, this);
+
     }
 
     @Override

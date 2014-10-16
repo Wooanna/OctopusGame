@@ -19,12 +19,13 @@ public class GameObject {
     public GameObject(Context context, String type, int xPosition, Bitmap image){
         this.type = String.valueOf(type);
         this.xPosition = xPosition;
-        this.yPosition = 0;
+        this.yPosition = 0 - image.getHeight();
         this.image = image;
         this.size = image.getWidth();
         this.isOutOfSpace = false;
         this.screenHeight = context.getResources().getDisplayMetrics().heightPixels;
     }
+
     private void update(){
         this.yPosition +=5;
         if(this.yPosition >= this.screenHeight){

@@ -23,12 +23,9 @@ public class GameObjectManger {
         this.context = context;
         this.random = new Random();
       this.screenWidth = context.getResources().getDisplayMetrics().widthPixels;
-
     }
     public GameObject initObject(){
         int randomNumber = this.random.nextInt(10);
-
-        this.xPosition = this.random.nextInt(this.screenWidth);
 
         if(randomNumber == 0){
             this.type = this.gameObjectTypes[2];
@@ -43,10 +40,10 @@ public class GameObjectManger {
             this.type = this.gameObjectTypes[3];
             this.image = BitmapFactory.decodeResource(context.getResources(), R.drawable.present);
         }
+
+        this.xPosition = this.random.nextInt(this.screenWidth - this.image.getWidth());
         return new GameObject(this.context, this.type, this.xPosition, this.image);
 
-
     }
-
 
 }

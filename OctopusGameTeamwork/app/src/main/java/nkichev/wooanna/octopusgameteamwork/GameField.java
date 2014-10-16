@@ -26,37 +26,36 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import nkichev.wooanna.octopusgameteamwork.GameAudio.Assets;
+import nkichev.wooanna.octopusgameteamwork.GameAudio.GameAudio;
+import nkichev.wooanna.octopusgameteamwork.GameAudio.GameSound;
 import nkichev.wooanna.octopusgameteamwork.QuestionsDB.Question;
 
 public class GameField extends Activity implements SensorEventListener, GestureDetector.OnGestureListener {
 
-    OurGameView v;
-    Bitmap octopus;
-    Bitmap moving_back;
-    //public float  xAcceleration,xVelocity = 0.0f;
-    //public float  yAcceleration,yVelocity = 0.0f;
+    private OurGameView v;
+    private Bitmap octopus;
+    private Bitmap moving_back;
     public float xmax,ymax;
     public float xPosition;
     public float yPosition;
+
     private SensorManager sensorManager = null;
     public Sensor accelerometer;
-   //public float frameTime = 0.666f;
-    Octopus creature;
-    Background background;
-    GameObject object;
-    GameObjectManger gameObjectManager;
-   public List<GameObject> gameObjects;
-    Random random;
+    private Octopus creature;
+    private Background background;
+    private GameObjectManger gameObjectManager;
+    public List<GameObject> gameObjects;
+    private Random random;
     private  GestureDetector detector;
-    Intent intent;
+    private Intent intent;
     private CollisionManager collisionManager;
+    private GameAudio gameAudio;
+
     public static final  String Q = "Q";
     public static final String A = "A";
     public static final String SCORE = "SCORE";
-
-    public static long score ;
-
-
+    public static long score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -70,17 +69,28 @@ public class GameField extends Activity implements SensorEventListener, GestureD
 
         // Get a reference to a SensorManager
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        accelerometer = sensorManager
-                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         GetScreenDimentions();
         random = new Random();
+
         gameObjectManager = new GameObjectManger(this);
         collisionManager = new CollisionManager(GameField.this);
         gameObjects = new ArrayList<GameObject>();
         this.detector = new GestureDetector(this, this);
+        this.gameAudio = new GameAudio(this);
+        Assets.blop = gameAudio.newSound("blop.wav");
+        Assets.bell = gameAudio.newSound("bell.wav");
+        Assets.gameover = gameAudio.newSound("gameover.wav");
         this.score = 0;
+        Assets.submarine.play();
         setContentView(v);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Assets.submarine.play();
     }
 
     private void GetScreenDimentions() {
@@ -100,6 +110,7 @@ public class GameField extends Activity implements SensorEventListener, GestureD
 
     @Override
     protected void onResume() {
+        Assets.submarine.play();
         super.onResume();
 
         // Register this class as a listener for the accelerometer sensor
@@ -116,7 +127,6 @@ public class GameField extends Activity implements SensorEventListener, GestureD
         super.onStop();
     }
 
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         return this.detector.onTouchEvent(event);
@@ -125,8 +135,8 @@ public class GameField extends Activity implements SensorEventListener, GestureD
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
 
-
         if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+
             if (xPosition > xmax - creature.getWidth()) {
                 xPosition = xmax- creature.getWidth();
             } else if (xPosition < 0) {
@@ -139,6 +149,7 @@ public class GameField extends Activity implements SensorEventListener, GestureD
             } else if (yPosition < 0) {
                 yPosition = 0;
             }
+
             xPosition -= (int) sensorEvent.values[0];
             yPosition += (int) sensorEvent.values[1];
             creature.setX((int)xPosition);
@@ -195,7 +206,7 @@ public class GameField extends Activity implements SensorEventListener, GestureD
         }
 
         public void run() {
-            creature = new Octopus(OurGameView.this, octopus);
+            creature = new Octopus(OurGameView.this, octopus, xmax/2, ymax);
             background = new Background(OurGameView.this, moving_back, (int)xmax, (int)ymax);
             while(isItOk) {
 
@@ -213,10 +224,13 @@ public class GameField extends Activity implements SensorEventListener, GestureD
                     if (ifCollide(creature, obj)){
 
                         if(obj.getType() == "Question" && !obj.isOutOfSpace()){
+                             Assets.blop.play(1);
                             startQuestionActivity();
                         }else  if(obj.getType() == "Star" && !obj.isOutOfSpace()){
                           score +=45;
+                          Assets.bell.play(1);
                         }else if(obj.getType() == "Enemy" && !obj.isOutOfSpace()){
+                            Assets.gameover.play(1);
                             gameOver();
                         }else if(obj.getType() == "Present" && !obj.isOutOfSpace()){
 
@@ -236,7 +250,6 @@ public class GameField extends Activity implements SensorEventListener, GestureD
             float octopusRight = octopus.getX() + octopus.getWidth();
             float octopusTop = octopus.getY();
             float octopusBottom = octopus.getY() + octopus.getHeight();
-
             float objectLeft = object.getX();
             float objectRight = object.getX() + object.getSize();
             float objectTop = object.getY();
@@ -265,7 +278,6 @@ public class GameField extends Activity implements SensorEventListener, GestureD
 
                      obj.draw(canvas);
                  }
-
              }
              creature.draw(canvas);
         }
@@ -292,7 +304,7 @@ public class GameField extends Activity implements SensorEventListener, GestureD
     }
 
     private void gameOver() {
-      Intent gameOver = new Intent(GameField.this, OnGameOverActivity.class);
+        Intent gameOver = new Intent(GameField.this, OnGameOverActivity.class);
         gameOver.putExtra(SCORE, score);
         startActivity(gameOver);
     }
@@ -300,27 +312,10 @@ public class GameField extends Activity implements SensorEventListener, GestureD
     private void startQuestionActivity() {
         Question q = collisionManager.onQuestionCollision();
 
-        Intent i  = new Intent(this, QuestionActivity.class);
+        Intent i  = new Intent(GameField.this, QuestionActivity.class);
         i.putExtra(Q, q.getQuestion());
         i.putExtra(A, q.getAnswers());
         startActivity(i);
-        // alertDialog(collisionManager.onQuestionCollision());
     }
 
-    private void alertDialog(Question currentQuestion) {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        String[] currentQuestionAnswers = currentQuestion.getAnswers();
-
-        builder.setTitle(currentQuestion.getQuestion())
-                .setItems(currentQuestionAnswers, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-
-        builder.create();
-        builder.show();
-
-    }
-}
+   }

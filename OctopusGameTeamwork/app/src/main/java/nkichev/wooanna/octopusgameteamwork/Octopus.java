@@ -15,16 +15,15 @@ public class Octopus {
     private float y;   // the Y coordinate
     private float width;
     private float height;
-    private boolean touched; // if monkey is touched
     private int currentFrame = 0;
     GameField.OurGameView ov;
 
-    public Octopus(GameField.OurGameView view, Bitmap bitmap) {
+    public Octopus(GameField.OurGameView view, Bitmap bitmap, float x, float y) {
         this.bitmap = bitmap;
         this.height = bitmap.getHeight();
         this.width = bitmap.getWidth()/6;
-        this.x = 0;
-        this.y = 0;
+        this.x = x;
+        this.y = y - (this.bitmap.getHeight()*2);
         ov = view;
     }
 
@@ -55,16 +54,6 @@ public class Octopus {
     public float getHeight() {
         return this.height;
     }
-
-
-    public boolean isTouched() {
-        return touched;
-    }
-
-    public void setTouched(boolean touched) {
-        this.touched = touched;
-    }
-
 
     public void draw(Canvas canvas) {
         currentFrame = ++currentFrame %6;

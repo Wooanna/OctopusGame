@@ -17,7 +17,7 @@ import nkichev.wooanna.octopusgameteamwork.HighscoresDB.EntriesDataSource;
 public class OnGameOverActivity extends Activity implements View.OnClickListener {
 
     EditText name;
-    Button btnDone, btnPlayAgain;
+    ImageView btnDone, btnPlayAgain;
     EntriesDataSource dataSource;
     EntriesDataSource dataSourceForReading;
     long score;
@@ -29,8 +29,10 @@ public class OnGameOverActivity extends Activity implements View.OnClickListener
         setContentView(R.layout.game_over_layout);
         dataSource = new EntriesDataSource(this);
         dataSourceForReading = new EntriesDataSource(this);
-        btnDone = (Button)findViewById(R.id.btn_done);
-        btnPlayAgain = (Button)findViewById(R.id.btn_play_again);
+        btnDone = (ImageView)findViewById(R.id.btn_done);
+        btnDone.setImageResource(R.drawable.done);
+        btnPlayAgain = (ImageView)findViewById(R.id.btn_play_again);
+        btnPlayAgain.setImageResource(R.drawable.play);
 
         btnPlayAgain.setOnClickListener(this);
         btnDone.setOnClickListener(this);
@@ -46,20 +48,24 @@ public class OnGameOverActivity extends Activity implements View.OnClickListener
             }
 
             name = (EditText)findViewById(R.id.username);
-            dataSource.open();
-            dataSourceForReading.openForReading();
-            id = dataSourceForReading.findEntry(name.getText().toString());
-            if(this.id != -1){
-                dataSource.updateEntry(this.score, this.id);
-                dataSourceForReading.close();
+            String inputName = name.getText().toString();
+            if(inputName.length() <= 2){
+                Toast.makeText(this, "Your username must be longer than 2 symbols", Toast.LENGTH_LONG).show();
+            }else {
+                dataSource.open();
+                dataSourceForReading.openForReading();
+                id = dataSourceForReading.findEntry(name.getText().toString());
+                if (this.id != -1) {
+                    dataSource.updateEntry(this.score, this.id);
+                    dataSourceForReading.close();
 
-            }else{
-              dataSource.createEntry(name.getText().toString(), this.score);
+                } else {
+                    dataSource.createEntry(name.getText().toString(), this.score);
 
+                }
+
+                Toast.makeText(this, "your score added", Toast.LENGTH_SHORT).show();
             }
-
-            Toast.makeText(this, "your score added", Toast.LENGTH_SHORT).show();
-
         }else if(view.getId() == R.id.btn_play_again){
             Intent in = new Intent(OnGameOverActivity.this, GameField.class);
             startActivity(in);
