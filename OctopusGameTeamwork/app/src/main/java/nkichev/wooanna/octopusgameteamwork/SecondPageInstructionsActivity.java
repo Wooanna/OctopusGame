@@ -40,6 +40,7 @@ public class SecondPageInstructionsActivity extends Activity implements View.OnC
     public void onClick(View view) {
         if(view.getId() == R.id.play_again){
             Intent i = new Intent(SecondPageInstructionsActivity.this, GameField.class);
+            startActivity(i);
         }
     }
 }

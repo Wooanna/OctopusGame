@@ -51,6 +51,7 @@ public class GameField extends Activity implements SensorEventListener, GestureD
     private Intent intent;
     private CollisionManager collisionManager;
     private GameAudio gameAudio;
+    private Score scoreDrawer;
 
     public static final  String Q = "Q";
     public static final String A = "A";
@@ -82,6 +83,7 @@ public class GameField extends Activity implements SensorEventListener, GestureD
         Assets.blop = gameAudio.newSound("blop.wav");
         Assets.bell = gameAudio.newSound("bell.wav");
         Assets.gameover = gameAudio.newSound("gameover.wav");
+
         this.score = 0;
         Assets.submarine.play();
         setContentView(v);
@@ -208,13 +210,14 @@ public class GameField extends Activity implements SensorEventListener, GestureD
         public void run() {
             creature = new Octopus(OurGameView.this, octopus, xmax/2, ymax);
             background = new Background(OurGameView.this, moving_back, (int)xmax, (int)ymax);
+            scoreDrawer = new Score();
             while(isItOk) {
 
                 //perform canvas drawing
                 if(!holder.getSurface().isValid()){
                     continue;
                 }
-                if( random.nextInt(80) == 5){
+                if( random.nextInt(50) == 5){
                     GameObject obj = gameObjectManager.initObject();
                      gameObjects.add(obj);
                 }
@@ -279,7 +282,9 @@ public class GameField extends Activity implements SensorEventListener, GestureD
                      obj.draw(canvas);
                  }
              }
+             scoreDrawer.draw(canvas, score);
              creature.draw(canvas);
+
         }
 
         public void pause(){

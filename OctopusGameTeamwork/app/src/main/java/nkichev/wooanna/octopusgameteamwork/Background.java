@@ -22,7 +22,7 @@ public class Background {
         this.screenWidth = xmax;
         this.yPosiotionBgr = this.screenHeight - image.getHeight();
         this.bottomOfImage = this.screenHeight;
-        this.speed = 5;
+        this.speed = 10;
     }
 
     private void update(){

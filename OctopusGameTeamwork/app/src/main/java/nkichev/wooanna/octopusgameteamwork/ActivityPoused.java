@@ -27,8 +27,7 @@ public class ActivityPoused extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if(view.getId() == R.id.resume){
-            intent = new Intent(ActivityPoused.this, GameField.class);
-            startActivity(intent);
+            ActivityPoused.this.finish();
         }
     }
 }

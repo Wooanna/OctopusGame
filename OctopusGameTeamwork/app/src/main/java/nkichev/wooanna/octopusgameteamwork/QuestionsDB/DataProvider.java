@@ -36,15 +36,6 @@ public  class DataProvider {
                     allQuestions = requestResult.getValue();
                     callback.onSuccess(allQuestions);
 
-                    for (Question question : allQuestions) {
-
-                        Log.d("QUESTION", "retrieved question: " + question.getQuestion());
-                        String[] answers = question.getAnswers();
-                        for (String answer : answers) {
-                            Log.d("ANS", answer);
-                        }
-                    }
-
                 } else {
                     System.out.println(requestResult.getError().toString());
                 }
